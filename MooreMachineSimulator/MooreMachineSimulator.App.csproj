@@ -11,4 +11,10 @@
     <ProjectReference Include="..\MooreMachineSimulator.Library\MooreMachineSimulator.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Definition.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

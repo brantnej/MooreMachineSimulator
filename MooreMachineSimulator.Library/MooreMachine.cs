@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,120 +15,32 @@ namespace MooreMachineSimulator.Models
         public MooreMachine(string JSONDefinition)
         {
             //TODO: Initialize Machine using JSON
-            State q0 = new State("q0", "0000");
-            State q1 = new State("q1", "0001");
-            State q2 = new State("q2", "0010");
-            State q3 = new State("q3", "1001");
+            dynamic items = JsonConvert.DeserializeObject(JSONDefinition);
 
-            q0.Transitions = new List<StateTransition>()
+            if (items == null)
             {
-                new StateTransition()
-                {
-                    Input = "00",
-                    NextState = q0
-                },
-            
-                new StateTransition()
-                {
-                    Input = "01",
-                    NextState = q0
-                },
-            
-                new StateTransition()
-                {
-                    Input = "10",
-                    NextState = q1
-                },
-            
-                new StateTransition()
-                {
-                    Input = "11",
-                    NextState = q0
-                }
-            };
-            
-            q1.Transitions = new List<StateTransition>()
-            {
-                new StateTransition()
-                {
-                    Input = "00",
-                    NextState = q1
-                },
-            
-                new StateTransition()
-                {
-                    Input = "01",
-                    NextState = q0
-                },
-            
-                new StateTransition()
-                {
-                    Input = "10",
-                    NextState = q2
-                },
-            
-                new StateTransition()
-                {
-                    Input = "11",
-                    NextState = q1
-                }
-            };
-            
-            q2.Transitions = new List<StateTransition>()
-            {
-                new StateTransition()
-                {
-                    Input = "00",
-                    NextState = q2
-                },
-            
-                new StateTransition()
-                {
-                    Input = "01",
-                    NextState = q1
-                },
-            
-                new StateTransition()
-                {
-                    Input = "10",
-                    NextState = q3
-                },
-            
-                new StateTransition()
-                {
-                    Input = "11",
-                    NextState = q2
-                }
-            };
-            
-            q3.Transitions = new List<StateTransition>()
-            {
-                new StateTransition()
-                {
-                    Input = "00",
-                    NextState = q3
-                },
-            
-                new StateTransition()
-                {
-                    Input = "01",
-                    NextState = q2
-                },
-            
-                new StateTransition()
-                {
-                    Input = "10",
-                    NextState = q3
-                },
-            
-                new StateTransition()
-                {
-                    Input = "11",
-                    NextState = q3
-                }
-            };
+                throw new ArgumentException();
+            }
 
-            _currentState = q0;
+            List<State> states = new List<State>();
+
+            foreach (var state in items.states)
+            {
+                states.Add(new State(Convert.ToString(state.name), Convert.ToString(state.output)));
+            }
+            foreach (var state in items.states)
+            {
+                var currentState = states.First(s => s.Name == Convert.ToString(state.name));
+                foreach (var transition in state.transitions)
+                {
+                    currentState.Transitions.Add(new StateTransition()
+                    {
+                        Input = transition.input,
+                        NextState = states.First(s => s.Name == Convert.ToString(transition.nextstate))
+                    }) ;
+                }
+            }
+            _currentState = states.First();
         }
         public void Transition(string input)
         {
@@ -142,10 +55,10 @@ namespace MooreMachineSimulator.Models
         {
             foreach (string input in inputs)
             {
-                Console.WriteLine($"Currently on state {CurrentState}...");
+                Console.WriteLine($"Currently on state {CurrentState} and outputting {Output}");
                 Console.WriteLine($"Inputting {input}...");
                 Transition(input);
-                Console.WriteLine($"FSM is now on state {CurrentState} and outputting {Output}");
+                Console.WriteLine($"FSM has transitioned to state {CurrentState} and outputting {Output}");
                 Console.WriteLine("---------------------------------------------------------------------------------");
             }
         }

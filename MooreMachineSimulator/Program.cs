@@ -1,21 +1,25 @@
 ﻿using System;
 using MooreMachineSimulator.Models;
 
-MooreMachine FSM = new MooreMachine(string.Empty);
-
-List<string> Inputs = new List<string>()
+using (StreamReader r = new StreamReader("Definition.json"))
 {
-    "11",
-    "10",
-    "01",
-    "00",
-    "10",
-    "10",
-    "10",
-    "10",
-    "01",
-    "00",
-    "01"
-};
+    string json = r.ReadToEnd();
+    MooreMachine FSM = new MooreMachine(json);
+    List<string> Inputs = new List<string>()
+    {
+        "11",
+        "10",
+        "01",
+        "00",
+        "10",
+        "10",
+        "10",
+        "10",
+        "01",
+        "00",
+        "01"
+    };
 
-FSM.Simulate(Inputs);
+    FSM.Simulate(Inputs);
+}
+
