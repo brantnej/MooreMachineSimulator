@@ -1,8 +1,9 @@
 {
+  "type" : "Moore",
   "states": [
     {
       "name": "q0",
-      "output" : "0000",
+      "output": "0000",
       "transitions": [
         {
           "input": "00",

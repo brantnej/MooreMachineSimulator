@@ -12,7 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Definition.json">
+    <None Update="DefinitionMoore.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DefinitionMealy.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Inputs.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

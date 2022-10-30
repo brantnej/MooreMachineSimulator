@@ -1,0 +1,83 @@
+{
+  "type": "Mealy",
+  "states": [
+    {
+      "name": "q0",
+      "outputs": [
+        {
+          "input": "00",
+          "output": "00"
+        },
+        {
+          "input": "01",
+          "output": "00"
+        },
+        {
+          "input": "10",
+          "output": "00"
+        },
+        {
+          "input": "11",
+          "output": "00"
+        }
+      ],
+      "transitions": [
+        {
+          "input": "00",
+          "nextstate": "q0"
+        },
+        {
+          "input": "01",
+          "nextstate": "q0"
+        },
+        {
+          "input": "10",
+          "nextstate": "q1"
+        },
+        {
+          "input": "11",
+          "nextstate": "q1"
+        }
+      ]
+    },
+    {
+      "name": "q1",
+      "outputs": [
+        {
+          "input": "00",
+          "output": "10"
+        },
+        {
+          "input": "01",
+          "output": "11"
+        },
+        {
+          "input": "10",
+          "output": "10"
+        },
+        {
+          "input": "11",
+          "output": "11"
+        }
+      ],
+      "transitions": [
+        {
+          "input": "00",
+          "nextstate": "q1"
+        },
+        {
+          "input": "01",
+          "nextstate": "q1"
+        },
+        {
+          "input": "10",
+          "nextstate": "q0"
+        },
+        {
+          "input": "11",
+          "nextstate": "q0"
+        }
+      ]
+    }
+  ]
+}
