@@ -1,7 +1,7 @@
 ﻿using System;
 using MooreMachineSimulator.Models;
 
-using (StreamReader r = new StreamReader("DefinitionMoore.json"))
+using (StreamReader r = new StreamReader("DefinitionMealy.json"))
 using (StreamReader i = new StreamReader("Inputs.json"))
 {
     string definitionJSON = r.ReadToEnd();
@@ -9,4 +9,3 @@ using (StreamReader i = new StreamReader("Inputs.json"))
     MooreMachine FSM = new MooreMachine(definitionJSON);
     FSM.Simulate(inputsJSON);
 }
-

@@ -8,6 +8,11 @@ namespace MooreMachineSimulator.Models
 {
     public class State
     {
+        /// <summary>
+        /// Constructs a state using a given name and output.
+        /// </summary>
+        /// <param name="name">The name of the state.</param>
+        /// <param name="output">The output of the state.</param>
         public State(string name, string output)
         {
             Name = name;
